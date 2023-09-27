@@ -1,6 +1,9 @@
 <?php 
 
-    include './includes/templates/header.php';
+require '.\includes\funciones.php';
+
+incluirTemplate('header');
+
 ?>
 
 
