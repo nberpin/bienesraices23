@@ -1,12 +1,19 @@
 <?php 
 //Base de datos
-    require '../../includes/config/database.php';
-    $db= conectarDB();
+require '../../includes/config/database.php';
+$db= conectarDB();
 
-    //controlando los mensajes de error en la validación del formulario
-    $errores=[];
-
-     if ($_SERVER['REQUEST_METHOD']==='POST'){
+//controlando los mensajes de error en la validación del formulario
+$errores=[];
+//inicializando variables para guardar en el formulario
+$titulo= '';
+$precio= '';
+$descripcion= '';
+$habitaciones= '';
+$wc= '';
+$estacionamiento='';
+$vendedores_id= '';
+if ($_SERVER['REQUEST_METHOD']==='POST'){
         
     //     echo "<pre>";
     //     var_dump($_SERVER);
@@ -81,29 +88,29 @@
             <legend> Información General</legend>
 
             <label for="titulo">Título: </label>
-            <input type="text" id="titulo" name="titulo" placeholder="Título propiedad">
+            <input type="text" id="titulo" name="titulo" placeholder="Título propiedad" value="<?php echo $titulo;  ?>">
             
             <label for="precio">Precio: </label>
-            <input type="number" id="precio" name="precio" placeholder="Precio propiedad">
+            <input type="number" id="precio" name="precio" placeholder="Precio propiedad" value="<?php echo $precio;  ?>">
 
             <label for="imagen">Imagen: </label>
             <input type="file" id="imagen" accept="image/jpeg, image/png">
 
             <label for=" descripcion"> Descripción: </label>
-            <textarea id="descripcion" name="descripcion" cols="30" rows="10"></textarea>
+            <textarea id="descripcion" name="descripcion" cols="30" rows="10"><?php echo $descripcion;  ?></textarea>
 
         </fieldset>
         <fieldset>
             <legend> Información de la propiedad</legend>
 
             <label for="habitaciones">Habitaciones: </label>
-            <input type="number" id="habitaciones" name="habitaciones" placeholder="Ej.3">
+            <input type="number" id="habitaciones" name="habitaciones" placeholder="Ej.3" value="<?php echo $habitaciones;  ?>">
 
             <label for="wc">Baños: </label>
-            <input type="number" id="wc" name="wc" placeholder="Ej.1">
+            <input type="number" id="wc" name="wc" placeholder="Ej.1"value="<?php echo $wc;  ?>">
 
             <label for="estacionamiento">Estacionamiento: </label>
-            <input type="number" id="estacionamiento" name="estacionamiento" placeholder="Ej.1">
+            <input type="number" id="estacionamiento" name="estacionamiento" placeholder="Ej.1" value="<?php echo $estacionamiento;  ?>">
 
         </fieldset>
 
