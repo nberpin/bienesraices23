@@ -2,16 +2,33 @@
 //Base de datos
     require '../../includes/config/database.php';
     $db= conectarDB();
-    if ($_SERVER['REQUEST_METHOD']==='POST'){
+     if ($_SERVER['REQUEST_METHOD']==='POST'){
         
-        echo "<pre>";
-        var_dump($_SERVER);
-        echo "</pre>";
+    //     echo "<pre>";
+    //     var_dump($_SERVER);
+    //     var_dump($_POST['titulo']);
+    //     echo "</pre>";
+    $titulo= $_POST['titulo'];
+    $precio= $_POST['precio'];
+    $descripcion= $_POST['descripcion'];
+    $habitaciones= $_POST['habitaciones'];
+    $wc= $_POST['wc'];
+    $estacionamiento= $_POST['estacionamiento'];
+    $vendedores_id= $_POST['vendedor'];
+    //ahora es donde realmente insertamos los valores en la bd
+    $query="INSERT INTO propiedades (titulo, precio, descripcion, habitaciones,wc,estacionamiento, vendedores_id)   
+     VALUES ('$titulo', '$precio', '$descripcion', '$habitaciones','$wc','$estacionamiento', '$vendedores_id')";
+    //echo $query;
+    $resultado=mysqli_query($db,$query);
+    if ($resultado) {
+        echo "Insertado correctamente";
     }
+}
+
     require '../../includes/funciones.php';
     incluirTemplate('header');
     
-
+  
 ?>
 
 <main class="contenedor seccion">
@@ -28,7 +45,7 @@
             <input type="number" id="precio" name="precio" placeholder="Precio propiedad">
 
             <label for="imagen">Imagen: </label>
-            <input type="file" id="imagen" name="imagen" accept="image/jpeg, image/png">
+            <input type="file" id="imagen" accept="image/jpeg, image/png">
 
             <label for=" descripcion"> Descripción: </label>
             <textarea id="descripcion" name="descripcion" cols="30" rows="10"></textarea>
@@ -37,20 +54,20 @@
         <fieldset>
             <legend> Información de la propiedad</legend>
 
-            <label for="habitaciones">Título: </label>
+            <label for="habitaciones">Habitaciones: </label>
             <input type="number" id="habitaciones" name="habitaciones" placeholder="Ej.3">
 
             <label for="wc">Baños: </label>
             <input type="number" id="wc" name="wc" placeholder="Ej.1">
 
-            <label for="estacionamiento">Baños: </label>
+            <label for="estacionamiento">Estacionamiento: </label>
             <input type="number" id="estacionamiento" name="estacionamiento" placeholder="Ej.1">
 
         </fieldset>
 
         <fieldset>
             <legend>Vendedor</legend>
-            <select >
+            <select name="vendedor">
                 <option value="1">Noelia</option>
                 <option value="2">Juan</option>
             </select>
