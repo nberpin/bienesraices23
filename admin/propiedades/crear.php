@@ -18,18 +18,27 @@ $estacionamiento='';
 
 $vendedores_id= '';
 if ($_SERVER['REQUEST_METHOD']==='POST'){
+
+    // $numero="1HOLA";
+    // $numero2=1;
+    // $resultado=filter_var($numero, FILTER_SANITIZE_NUMBER_INT);
+    // $resultado=filter_var($numero, FILTER_VALIDATE_INT);
+    // var_dump($resultado);
+    // exit;
         
     //     echo "<pre>";
     //     var_dump($_SERVER);
     //     var_dump($_POST['titulo']);
     //     echo "</pre>";
-    $titulo= $_POST['titulo'];
-    $precio= $_POST['precio'];
-    $descripcion= $_POST['descripcion'];
-    $habitaciones= $_POST['habitaciones'];
-    $wc= $_POST['wc'];
-    $estacionamiento= $_POST['estacionamiento'];
-    $vendedores_id= $_POST['vendedores_id'];
+
+    //sanitizamos nuestros datos
+    $titulo=mysqli_real_escape_string($db, $_POST['titulo']);
+    $precio=mysqli_real_escape_string($db,$_POST['precio']);
+    $descripcion=mysqli_real_escape_string($db,$_POST['descripcion']);
+    $habitaciones= mysqli_real_escape_string($db,$_POST['habitaciones']);
+    $wc=mysqli_real_escape_string($db,$_POST['wc']);
+    $estacionamiento=mysqli_real_escape_string($db,$_POST['estacionamiento']);
+    $vendedores_id=mysqli_real_escape_string($db,$_POST['vendedores_id']);
     $creado=date('Y/m/d');
     //comprobamos los datos
     if (!$titulo) {
@@ -60,6 +69,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
     //     exit;
     //ahora es donde realmente insertamos los valores en la bd
     //solo se introduce el campo si el array de errores está vacío
+    
     if(empty($errores)){
         $query="INSERT INTO propiedades (titulo, precio, descripcion, habitaciones,wc,estacionamiento, creado,  vendedores_id)   
         VALUES ('$titulo', '$precio', '$descripcion', '$habitaciones','$wc','$estacionamiento','$creado', '$vendedores_id')";
