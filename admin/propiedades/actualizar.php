@@ -95,9 +95,10 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
     if (!$vendedores_id) {
         $errores[]="Elige un vendedor";
     }
-    if (!$imagen['name']) {
-        $errores[]="La imagen es obligatoria";
-    }
+    //deja de ser obligatorio añadir una imagen
+    // if (!$imagen['name']) {
+    //     $errores[]="La imagen es obligatoria";
+    // }
 
     //validar la imagen por tamaño
     //medida máxima en kb
@@ -117,22 +118,22 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
         /**SUBIDA DE ARCHIVOS */
 
         //creamos la carpeta imágenes en la raíz del proyecto si es que no existe
-        $carpetaImagenes='../../imagenes/';
+        // $carpetaImagenes='../../imagenes/';
 
-        if (!is_dir($carpetaImagenes)){
-            mkdir($carpetaImagenes);
-        }
-        //Generar nombre único
-        $nombreImagen=md5(uniqid(rand(),true)).".jpg";
-        // echo $nombreImagen;
-        // exit;
+        // if (!is_dir($carpetaImagenes)){
+        //     mkdir($carpetaImagenes);
+        // }
+        // //Generar nombre único
+        // $nombreImagen=md5(uniqid(rand(),true)).".jpg";
+        // // echo $nombreImagen;
+        // // exit;
 
-        //subir archivo
-        move_uploaded_file($imagen['tmp_name'], $carpetaImagenes . $nombreImagen);
+        // //subir archivo
+        // move_uploaded_file($imagen['tmp_name'], $carpetaImagenes . $nombreImagen);
 
-        $query="INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones,wc,estacionamiento, creado,  vendedores_id)   
-        VALUES ('$titulo', '$precio', '$nombreImagen','$descripcion', '$habitaciones','$wc','$estacionamiento','$creado', '$vendedores_id')";
-       //echo $query;
+        $query="UPDATE propiedades SET titulo='${titulo}', precio='${precio}', descripcion='${descripcion}', habitaciones=${habitaciones},wc=${wc},estacionamiento=${estacionamiento},  vendedores_id=${vendedores_id} WHERE id=${id}";
+    //    echo $query;
+     
        $resultado=mysqli_query($db,$query);
        if ($resultado) {
            header('Location:/admin?resultado=1');
@@ -157,7 +158,8 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
 
     <?php } ?>
     <a href="/admin/" class="boton boton-verde">Volver</a>
-    <form class="formulario" method="POST" action="/admin/propiedades/crear.php" enctype="multipart/form-data">
+    <!-- al quitar el action lo envía a la misma página que es lo correcto -->
+    <form class="formulario" method="POST"  enctype="multipart/form-data">
         <fieldset>
             <legend> Información General</legend>
 
